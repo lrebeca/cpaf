@@ -26,3 +26,9 @@
 .footer__link:hover{
     color: #fff;
 }
+
+/* estilos de  welcome*/
+
+#card__img{
+    background-color: black;
+}
