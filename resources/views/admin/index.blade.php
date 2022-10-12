@@ -24,9 +24,8 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="{{asset('asset/panel/2895133.jpg')}}" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                  <h5 class="card-title">Card title</h5><br>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                  <h5 class="card-title">Pendientes de Aprobación</h5><br>
+                                  <a href="#" class="btn btn-primary">Ver</a>
                                 </div>
                             </div>
                         </div>
@@ -35,9 +34,8 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="..." class="card-img-top" alt="...">
                                 <div class="card-body">
-                                  <h5 class="card-title">Card title</h5>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <h5 class="card-title">Aprobados</h5><br>
+                                    <a href="#" class="btn btn-primary">Ver</a>
                                 </div>
                               </div>
                         </div>
@@ -46,9 +44,8 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="..." class="card-img-top" alt="...">
                                 <div class="card-body">
-                                  <h5 class="card-title">Card title</h5>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <h5 class="card-title">Rechazados</h5><br>
+                                    <a href="#" class="btn btn-primary">Ver</a>
                                 </div>
                             </div>
                         </div>
@@ -64,8 +61,8 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="{{asset('asset/panel/2895133.jpg')}}" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                  <h5 class="card-title">Usuarios</h5>
-                                  <a href="#" class="btn btn-primary"></a>
+                                    <h5 class="card-title">Usuarios</h5><br>
+                                    <a href="#" class="btn btn-primary">Ver</a>
                                 </div>
                               </div>
                         </div>
@@ -74,9 +71,8 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="..." class="card-img-top" alt="...">
                                 <div class="card-body">
-                                  <h5 class="card-title">Card title</h5>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <h5 class="card-title">Eventos</h5><br>
+                                    <a href="#" class="btn btn-primary">Ver</a>
                                 </div>
                               </div>
                         </div>
@@ -85,9 +81,8 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="..." class="card-img-top" alt="...">
                                 <div class="card-body">
-                                  <h5 class="card-title">Card title</h5>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <h5 class="card-title">Certificados</h5><br>
+                                    <a href="#" class="btn btn-primary">Ver</a>
                                 </div>
                               </div>
                         </div>
@@ -96,9 +91,8 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="..." class="card-img-top" alt="...">
                                 <div class="card-body">
-                                  <h5 class="card-title">Card title</h5>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <h5 class="card-title">Organizadores</h5><br>
+                                    <a href="#" class="btn btn-primary">Ver</a>
                                 </div>
                               </div>
                         </div>
@@ -107,9 +101,8 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="..." class="card-img-top" alt="...">
                                 <div class="card-body">
-                                  <h5 class="card-title">Card title</h5>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <h5 class="card-title">Provincias</h5><br>
+                                    <a href="#" class="btn btn-primary">Ver</a>
                                 </div>
                               </div>
                         </div>                        
@@ -118,9 +111,8 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="..." class="card-img-top" alt="...">
                                 <div class="card-body">
-                                  <h5 class="card-title">Card title</h5>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <h5 class="card-title">Roles</h5><br>
+                                    <a href="#" class="btn btn-primary">Ver</a>
                                 </div>
                               </div>
                         </div>
@@ -129,9 +121,8 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="..." class="card-img-top" alt="...">
                                 <div class="card-body">
-                                  <h5 class="card-title">Card title</h5>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <h5 class="card-title">Imagenes</h5><br>
+                                    <a href="#" class="btn btn-primary">Ver</a>
                                 </div>
                               </div>>
                         </div>
