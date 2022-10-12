@@ -5,13 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
 use App\Models\Admin\Event;
-use App\Models\Certificate;
-use App\Models\Document;
 use App\Models\Student;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
-use Dompdf\Canvas;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -39,40 +34,42 @@ class StudentController extends Controller
         $events = Event::all();
         $id_event = $request->id_evento;
         foreach($events as $evento){
-        if($evento->id == $id_event)
-        {    
-            
-            $email = $request->email;
-            $ci = $request->carnet_identidad;
+            if($evento->id == $id_event)
+            {    
+                
+                $email = $request->email;
+                $ci = $request->carnet_identidad;
 
-            if (DB::table('students')->where('email', $email)->where('id_evento', $id_event)->exists()) 
-            {
-                return redirect()->route('events.show', $evento)->with('info', 'El email ya esta registrado en este evento.');
-            }
-            if (DB::table('students')->where('carnet_identidad', $ci)->where('id_evento', $id_event)->exists()) 
-            {
-                return redirect()->route('events.show', $evento)->with('info', 'El número de Carnet de identidad ya esta registrado en este evento.');
-            }
-            $student = $request->all(); 
+                if (DB::table('students')->where('email', $email)->where('id_evento', $id_event)->exists()) 
+                {
+                    return redirect()->route('events.show', $evento)->with('info', 'El email ya esta registrado en este evento.');
+                }
+                if (DB::table('students')->where('carnet_identidad', $ci)->where('id_evento', $id_event)->exists()) 
+                {
+                    return redirect()->route('events.show', $evento)->with('info', 'El número de Carnet de identidad ya esta registrado en este evento.');
+                }
+                $student = $request->all(); 
 
-            if($request->hasFile('img_deposito'))
-            {
-                //$student['img_deposito'] = Storage::put('depositos', $request->file('img_depositos'));
-                //$student['img_deposito'] = $request->file('img_deposito')->store('depositos');
-                $stu['img_deposito'] =  $request->file('img_deposito')->getClientOriginalName();
-                $student['img_deposito'] = $request->file('img_deposito')->storeAs('depositos', $stu['img_deposito']);
+                if($request->hasFile('img_deposito'))
+                {
+                    //$student['img_deposito'] = Storage::put('depositos', $request->file('img_depositos'));
+                    //$student['img_deposito'] = $request->file('img_deposito')->store('depositos');
+                    $stu['img_deposito'] =  $request->file('img_deposito')->getClientOriginalName();
+                    $student['img_deposito'] = $request->file('img_deposito')->storeAs('depositos', $stu['img_deposito']);
+                }
+                
+                Student::create($student);
+    
+                return redirect()->route('events.show', $evento)->with('info', 'Su formulario ha sido enviado con exito, para la confirmación se le enviará un mensaje a su correo o puede Ingresar al evento para verificar con su USUARIO: email y CONTRASEÑA: Carnet de identidad.');
             }
-            
-            Student::create($student);
- 
-            return redirect()->route('events.show', $evento)->with('info', 'Su formulario ha sido enviado con exito, para la confirmación se le enviará un mensaje a su correo o puede Ingresar al evento para verificar con su USUARIO: email y CONTRASEÑA: Carnet de identidad.');
-        }
         }
     }
 
     public function edit(Student $student)
     {
+        //return $student;
         $id_event = $student->id_evento;
+
         $event = DB::table('events')->find($id_event);
 
         return view('registers.edit', compact('student', 'event'));
@@ -103,6 +100,12 @@ class StudentController extends Controller
             }
 
         }
+        if($student->observation())
+        {
+            $student->observation()->delete();
+        }
+        $student->progreso = 'enviado';
+
         $student->update($request->except(['img_deposito']));   
 
         return redirect()->route('students.edit', $student)->with('info', 'Sus datos fueron actualizados!!');

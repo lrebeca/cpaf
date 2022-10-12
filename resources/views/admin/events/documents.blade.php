@@ -33,7 +33,7 @@
 
 @can('Crear Documentos')
     <div class="card-header">
-        <a href="{{route('admin.events.createdetail', $event)}}" class="btn btn-primary">Agregar los detalles a un evento</a>
+        <a href="{{route('admin.events.createdocument', $event)}}" class="btn btn-primary">Agregar documento</a>
     </div>
     <br> 
 @endcan

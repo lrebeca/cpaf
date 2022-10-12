@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -21,14 +22,6 @@ class EventController extends Controller
      */
     public function index()
     {
-        // if(request()->page)
-        // {
-        //     $key = 'events' . request()->page;
-        // }
-        // else
-        // {
-        //     $key = 'events';
-        // }
         // if(Cache::has('events'))
         // {
         //     $events = Cache::get('events');
@@ -36,7 +29,7 @@ class EventController extends Controller
         // else
         // {
             $events = Event::where('estado', 2)->latest('id')->get();
-            //Cache::put('events', $events);
+            Cache::put('events', $events);
         //}
         
         $date = $date = Carbon::now();

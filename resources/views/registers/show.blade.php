@@ -3,7 +3,6 @@
     @extends('layouts.header')
     <title>Registro | CPCF</title>
     <link rel="shortcut icon" href="{{asset('favicons/favicon.ico')}}" type="image/x-ico">
-
     <div class="container-fluid p-5 bg-dark"></div>
 
     <style type="text/css">
@@ -13,11 +12,21 @@
         #form_p, #form_gratis_p{
             display: none;
         }
+
+        .bienvenida h1{
+            color: rgb(4, 4, 70);
+            padding-top: 3%;
+            padding-bottom: 2%;
+            text-align: center;
+            font-weight: 500;
+            font-size: 30px;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
     </style>
 <body>
     
     {{-- Bienvenida a la pagina de registro --}}
-<div class="alert alert-dark text-center">
+<div class="alert text-center bienvenida">
     <h1>PUEDES REGISTRARTE AL EVENTO</h1>
 </div>
 
@@ -30,7 +39,7 @@
                     <img id="img" src="{{Storage::url($event->imagen)}}"  class="img-fluid">
                 @else
                     <div class="image-wrapper">
-                        <img id="img" src="{{asset('asset/img/DSC_0006.jpg')}}">
+                        <img id="img" src="{{asset('asset/img/DSC_0006.jpg')}}" class="img-fluid">
                     </div>
                 @endisset
             </div>
@@ -66,7 +75,7 @@
 
                 <!-- Button trigger modal -->
                 <div class="text-center"><br><br>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Ingresar al evento
                     </button>
                 </div>
@@ -109,7 +118,7 @@
                         </div>
                         <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            {!! Form::submit('Enviar', ['class' => 'btn btn-primary']) !!}
+                            {!! Form::submit('Enviar', ['class' => 'btn btn-outline-primary']) !!}
                         </div>
                         {!! Form::close() !!}
                     </div>
@@ -197,7 +206,7 @@
                             @include('registers.partials.pagado')
 
                         <br>
-                        {!! Form::submit('Enviar Formulario', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Enviar Formulario', ['class' => 'btn btn-outline-primary']) !!}
 
                         {!! Form::close() !!}
                     </div>
@@ -246,7 +255,7 @@
                             @include('registers.partials.pagado')
 
                         <br>
-                        {!! Form::submit('Enviar Formulario', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Enviar Formulario', ['class' => 'btn btn-outline-primary']) !!}
 
                         {!! Form::close() !!}
                     </div>
@@ -298,7 +307,7 @@
 
                         
                         <br>
-                        {!! Form::submit('Enviar Formulario', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Enviar Formulario', ['class' => 'btn btn-outline-primary']) !!}
 
                         {!! Form::close() !!}
                     </div>
@@ -319,18 +328,21 @@
 
                             <div class="form-group mb-3">
                                 {!! Form::label('sufix', 'Seleccionar') !!}
-                                {!! Form::select('sufix', ['Ing.', 'Lic.', null], null, ['placeholder' => '--- Seleccion ---']) !!}
+                                {!! Form::select('sufix', ['Ingeniero'=>'Ingeniero', 
+                                                            'Licenciado'=>'Licenciado', 
+                                                            'Doctor'=>'Doctor',
+                                                            'Abogado0'=>'Abogado'
+                                                        ], null, ['class' => 'form-control', 'placeholder' => '--- Seleccion ---']) !!}
                             </div>
                             
                                 @error('sufix')
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror
-
-                        
+                                
                             @include('registers.partials.gratis')
                             
                         <br>
-                        {!! Form::submit('Enviar Formulario', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Enviar Formulario', ['class' => 'btn btn-outline-primary']) !!}
 
                         {!! Form::close() !!}
                     </div>

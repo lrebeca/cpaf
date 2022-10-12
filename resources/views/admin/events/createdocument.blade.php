@@ -41,7 +41,7 @@
                 <div class="col">
                     <div class="form-group">
                         {!! Form::label('documento', 'Documento') !!} <br>
-                        {!! Form::file('documento', ['accept'=>'.doc,.pdf,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'class' => 'form-control-file']) !!}
+                        {!! Form::file('documento', ['accept'=>'.doc,.pdf,.xlxs,.docx', 'class' => 'form-control-file']) !!}
                     </div>
                     @error('documento')
                         <span class="text-danger">{{$message}}</span>

@@ -3,11 +3,32 @@
     @extends('layouts.header')
     <link rel="shortcut icon" href="{{asset('favicons/favicon.ico')}}" type="image/x-ico">
     <title>CPCF | Participante  </title>
-    
+    <style>
+        .bienvenida h1{
+            color: rgb(4, 4, 70);
+            padding-top: 3%;
+            padding-bottom: 2%;
+            text-align: center;
+            font-weight: 500;
+            font-size: 30px;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+    </style>
 <body>
     <div class="container-fluid p-5 bg-dark"></div>
-    <div class="alert alert-dark text-center">
-        <h1>EDITAR REGISTRO</h1>
+    <div class="alert bienvenida">
+        <h1>EDITAR REGISTRO </h1>
+        <h1>{{$event->evento}}</h1>
+    </div>
+
+    <div class="row align-items-center justify-content-center">
+        @if (session('info'))
+            <div class="alert alert-success text-center col-sm-6" >
+                <strong>
+                    {{session('info')}}
+                </strong>
+            </div>
+        @endif
     </div>
 
 <div class="row align-items-center justify-content-center">
@@ -55,7 +76,7 @@
                     
                     @include('registers.partials.pagado')
 
-                {!! Form::submit('Actualizar Datos', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('Actualizar Datos', ['class' => 'btn btn-outline-primary']) !!}
 
                 {!! Form::close() !!} <br><br>
 
@@ -102,7 +123,7 @@
             @include('registers.partials.gratis')
         
         <br>
-        {!! Form::submit('Actualizar Datos', ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit('Actualizar Datos', ['class' => 'btn btn-outline-primary']) !!}
 
         {!! Form::close() !!} <br><br>
     @endif
@@ -126,7 +147,11 @@
                 
                     <div class="form-group mb-3">
                         {!! Form::label('sufix', 'Seleccionar') !!}
-                        {!! Form::select('sufix', ['Ing.', 'Lic.', null], null, ['placeholder' => '--- Seleccion ---']) !!}
+                        {!! Form::select('sufix', ['Ingeniero'=>'Ingeniero', 
+                        'Licenciado'=>'Licenciado', 
+                        'Doctor'=>'Doctor',
+                        'Abogado0'=>'Abogado'
+                    ], null, ['placeholder' => '--- Seleccion ---']) !!}
                     </div>
                     
                         @error('sufix')
@@ -136,7 +161,7 @@
                     @include('registers.partials.pagado')
 
                 <br>
-                {!! Form::submit('Actualizar Datos', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('Actualizar Datos', ['class' => 'btn btn-outline-primary']) !!}
 
                 {!! Form::close() !!} <br><br>
     @endif 
@@ -154,7 +179,11 @@
 
                     <div class="form-group mb-3">
                         {!! Form::label('sufix', 'Seleccionar') !!}
-                        {!! Form::select('sufix', ['Ing.', 'Lic.', null], null, ['placeholder' => '--- Seleccion ---']) !!}
+                        {!! Form::select('sufix', ['Ingeniero'=>'Ingeniero', 
+                        'Licenciado'=>'Licenciado', 
+                        'Doctor'=>'Doctor',
+                        'Abogado0'=>'Abogado'
+                    ], null, ['placeholder' => '--- Seleccion ---']) !!}
                     </div>
                     
                         @error('sufix')
@@ -165,7 +194,7 @@
                     @include('registers.partials.gratis')
                     
                 <br>
-                {!! Form::submit('Actualizar Datos', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('Actualizar Datos', ['class' => 'btn btn-outline-primary']) !!}
 
                 {!! Form::close() !!} <br><br>
     @endif
@@ -174,6 +203,8 @@
 
     </div>
 </div>
+
+
 
 </body>
 </html>

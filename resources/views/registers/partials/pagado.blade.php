@@ -93,13 +93,16 @@
 {{-- Imagen de Deposito --}}
 @isset ($student->img_deposito)
 <center>
-    <img id="img" src="{{Storage::url($student->img_deposito)}}" alt="" width="600px">
+    <img id="img" src="{{Storage::url($student->img_deposito)}}" alt="" width="80%">
 </center>
 @endisset 
 
 <div class="form-group">
     {!! Form::label('img_deposito', 'Comprobante') !!} <br><br>
     {!! Form::file('img_deposito', ['accept'=>'image/*', 'class' => 'form-control-file']) !!}
+    @isset ($student->img_deposito)
+    {!! Form::hidden('img_deposito', $student->img_deposito) !!}
+    @endisset 
 </div>
 
 @error('img_deposito')

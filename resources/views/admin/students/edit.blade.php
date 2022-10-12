@@ -134,17 +134,14 @@
                 <div class="row mb-3">
                     <div class="col">
                         <div class="image-wrapper">
-                            @isset($student->img_deposito)
-                                <img id="img" src="{{Storage::url($student->img_deposito)}}"  alt="">
-                            @else
-                                <img id="img" src="{{asset('asset/img/DSC_0006.jpg')}}"  alt="">
-                            @endisset
+                            <img id="img" src="{{Storage::url($student->img_deposito)}}"  alt="">
                         </div> 
                     </div>
                     <div class="col">
                         <div class="form-group mb-3">
                             {!! Form::label('img_deposito', 'Imagen de Deposito') !!}
                             {!! Form::file('img_deposito', ['accept'=>'image/*', 'class' => 'form-control-file']) !!}
+                            {!! Form::hidden('img_deposito', $student->img_deposito) !!}
                         </div>
                         @error('img_deposito')
                             <span class="text-danger">{{$message}}</span>
