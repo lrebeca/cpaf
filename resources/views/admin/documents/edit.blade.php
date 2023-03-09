@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Documentos')
+@section('title', 'Editar Documento')
 
 @section('content_header')
     <h1>Documentos</h1>
 @stop
 
 @section('content')
-    <p>Cree los documentos del evento </p>
+    <p>Edite el documento </p>
 
     @if (session('info'))
     <div class="alert alert-success">
@@ -50,7 +50,7 @@
                 <div class="col">
                     <div class="form-group">
                         {!! Form::label('documento', 'Documento') !!} <br>
-                        {!! Form::file('documento', ['accept'=>'.doc,.pdf,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'class' => 'form-control-file']) !!}
+                        {!! Form::file('documento', ['class' => 'form-control-file']) !!}
                     </div>
                     @error('documento')
                         <span class="text-danger">{{$message}}</span>
@@ -59,7 +59,7 @@
             </div>
 
             <br>
-            {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Actualizar', ['class' => 'btn btn-info']) !!}
             <br>
 
             {!! Form::close() !!}

@@ -32,3 +32,8 @@
 #card__img{
     background-color: black;
 }
+.text{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 50px;
+    color: blue;
+}

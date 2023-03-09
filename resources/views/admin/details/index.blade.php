@@ -21,9 +21,9 @@
 
 @section('content')
 
-@can('Crear Detalles')
+@can('Crear Detalles') 
     <div class="card-header">
-        <a href="{{route('admin.details.create')}}" class="btn btn-primary">Agregar los detalles a un evento</a>
+        <a href="{{route('admin.details.create')}}" class="btn btn-info">Agregar los detalles a un evento</a>
     </div>
     <br>
 @endcan

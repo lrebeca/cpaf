@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Documentos')
 
 @section('content_header')
 <center><h1>{{$event->evento}}</h1></center>
 @stop
 
 @section('content')
-    <p>Cree documento para el evento </p>
+    <p>Agregue un documento </p>
 
     <div class="card">
         <div class="card-body">
@@ -41,7 +41,7 @@
                 <div class="col">
                     <div class="form-group">
                         {!! Form::label('documento', 'Documento') !!} <br>
-                        {!! Form::file('documento', ['accept'=>'.doc,.pdf,.xlxs,.docx', 'class' => 'form-control-file']) !!}
+                        {!! Form::file('documento', ['class' => 'form-control-file']) !!}
                     </div>
                     @error('documento')
                         <span class="text-danger">{{$message}}</span>
@@ -50,7 +50,7 @@
             </div>
 
             <br>
-            {!! Form::submit('Agregar', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Agregar', ['class' => 'btn btn-info']) !!}
             <br>
 
             {!! Form::close() !!}

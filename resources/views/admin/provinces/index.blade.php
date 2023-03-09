@@ -22,7 +22,7 @@
 
 @can('Crear Provincias')
     <div class="card-header">
-        <a href="{{route('admin.provinces.create')}}" class="btn btn-primary">Agregar provincia</a>
+        <a href="{{route('admin.provinces.create')}}" class="btn btn-outline-primary">Agregar provincia</a>
     </div><br>
 @endcan
     

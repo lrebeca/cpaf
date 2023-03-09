@@ -33,8 +33,7 @@
 </head>
 
     <body id="fondo">
-            <br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br>
             <div class="container">
                 {{$nombre}}
             </div>

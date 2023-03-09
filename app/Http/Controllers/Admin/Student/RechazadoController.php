@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
 use App\Models\Admin\Event;
 use App\Models\Student;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -74,6 +73,6 @@ class RechazadoController extends Controller
     {
        $student->delete();
 
-        return redirect()->route('admin.students.rechazado.index')->with('info','El participante se ha eliminado');
+        return redirect()->back()->with('info','El participante se ha eliminado');
     }
 }

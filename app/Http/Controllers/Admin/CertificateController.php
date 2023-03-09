@@ -68,11 +68,13 @@ class CertificateController extends Controller
             'id_evento' => 'required',
             'detalle' => 'required',
             'image_id' => 'required',
+            'fecha' => 'required'
         ],
         [
             'id_evento.required' => 'El evento es requerido.',
             'detalle.required' => 'El detalle es requerido',
-            'image_id.required' => 'La imagen es requerido para el certificado'
+            'image_id.required' => 'La imagen es requerido para el certificado',
+            'fecha' => 'La fecha es requerida para que se publique'
         ]
         );
 
@@ -111,11 +113,13 @@ class CertificateController extends Controller
             'id_evento' => 'required',
             'detalle' => 'required',
             'image_id' => 'required',
+            'fecha' => 'required'
         ],
         [
             'id_evento.required' => 'El evento es requerido.',
             'detalle.required' => 'El detalle es requerido',
-            'image_id.required' => 'La imagen es requerido para el certificado'
+            'image_id.required' => 'La imagen es requerido para el certificado',
+            'fecha' => 'La fecha es requerida para que se publique'
         ]        
     );
 

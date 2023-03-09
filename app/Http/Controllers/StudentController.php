@@ -29,45 +29,59 @@ class StudentController extends Controller
      */
     
     public function store(StudentRequest $request)
-    {
-        
+    {   
         $events = Event::all();
         $id_event = $request->id_evento;
         foreach($events as $evento){
             if($evento->id == $id_event)
-            {    
-                
-                $email = $request->email;
-                $ci = $request->carnet_identidad;
+            {     
+                if($request->costo_e > 0)
+                {
+                    $email = $request->email;
+                    $ci = $request->carnet_identidad;
 
-                if (DB::table('students')->where('email', $email)->where('id_evento', $id_event)->exists()) 
-                {
-                    return redirect()->route('events.show', $evento)->with('info', 'El email ya esta registrado en este evento.');
-                }
-                if (DB::table('students')->where('carnet_identidad', $ci)->where('id_evento', $id_event)->exists()) 
-                {
-                    return redirect()->route('events.show', $evento)->with('info', 'El número de Carnet de identidad ya esta registrado en este evento.');
-                }
-                $student = $request->all(); 
+                    if (DB::table('students')->where('email', $email)->where('id_evento', $id_event)->exists()) 
+                    {
+                        return redirect()->route('events.show', $evento)->with('info', 'El email ya esta registrado en este evento.');
+                    }
+                    if (DB::table('students')->where('carnet_identidad', $ci)->where('id_evento', $id_event)->exists()) 
+                    {
+                        return redirect()->route('events.show', $evento)->with('info', 'El número de Carnet de identidad ya esta registrado en este evento.');
+                    }
+                    $student = $request->all(); 
 
-                if($request->hasFile('img_deposito'))
-                {
-                    //$student['img_deposito'] = Storage::put('depositos', $request->file('img_depositos'));
-                    //$student['img_deposito'] = $request->file('img_deposito')->store('depositos');
-                    $stu['img_deposito'] =  $request->file('img_deposito')->getClientOriginalName();
-                    $student['img_deposito'] = $request->file('img_deposito')->storeAs('depositos', $stu['img_deposito']);
+                    if($request->hasFile('img_deposito'))
+                    {
+                        $stu['img_deposito'] =  $request->file('img_deposito')->getClientOriginalName();
+                        $student['img_deposito'] = $request->file('img_deposito')->storeAs('depositos', $stu['img_deposito']);
+                    }
+                    
+                    Student::create($student);
+        
+                    return redirect()->route('events.show', $evento)->with('info', 'Su formulario ha sido enviado con exito, 
+                        debe Ingresar al evento para verificar su inscripción con su USUARIO: email y CONTRASEÑA: Carnet de identidad.');
                 }
-                
-                Student::create($student);
-    
-                return redirect()->route('events.show', $evento)->with('info', 'Su formulario ha sido enviado con exito, para la confirmación se le enviará un mensaje a su correo o puede Ingresar al evento para verificar con su USUARIO: email y CONTRASEÑA: Carnet de identidad.');
+                else
+                {
+                    
+                    $student = $request->all();
+
+                    if($request->has('progreso'))
+                    {
+                        $student['progreso'] =  'aprobado';
+                    }
+                    
+                    Student::create($student);
+
+                    return redirect()->route('events.show', $evento)->with('info', 'Su formulario ha sido enviado con exito, 
+                        debe Ingresar al evento con su USUARIO: email y CONTRASEÑA: Carnet de identidad para mas información.');
+                }
             }
         }
     }
 
     public function edit(Student $student)
     {
-        //return $student;
         $id_event = $student->id_evento;
 
         $event = DB::table('events')->find($id_event);
@@ -80,7 +94,6 @@ class StudentController extends Controller
         
         if($request->file('img_deposito')){
             
-            //$img = Storage::put('depositos', $request->file('img_deposito'));
             $stu['img_deposito'] =  $request->file('img_deposito')->getClientOriginalName();
             $img = $request->file('img_deposito')->storeAs('depositos', $stu['img_deposito']);
 
@@ -108,7 +121,7 @@ class StudentController extends Controller
 
         $student->update($request->except(['img_deposito']));   
 
-        return redirect()->route('students.edit', $student)->with('info', 'Sus datos fueron actualizados!!');
+        return redirect()->route('students.edit', $student)->with('info', 'Sus datos fueron actualizados y serán verificados!!');
     }
 
     public function certificado(Student $student)
@@ -121,7 +134,7 @@ class StudentController extends Controller
         $image = DB::table('images')->find($id_image);
         $event = DB::table('events')->find($id);
 
-        $nombre = "A: ".$student->sufix." ".$student->nombre." ".$student->apellido_paterno." ".$student->apellido_materno;
+        $nombre = " ".$student->sufix." ".$student->nombre." ".$student->apellido_paterno." ".$student->apellido_materno;
         $nombrec = $student->nombre.$student->apellido_paterno.$student->apellido_materno;
         
         return view('certificate.index', compact('student', 'image', 'certificate', 'event', 'nombre','nombrec')); 
@@ -137,14 +150,16 @@ class StudentController extends Controller
         $image = DB::table('images')->find($id_image);
         $event = DB::table('events')->find($id);
 
-        $nombre = "A: ".$student->nombre." ".$student->apellido_paterno." ".$student->apellido_materno;
-        $nombrec = $student->nombre.$student->apellido_paterno.$student->apellido_materno;
+        $nevent = $event->evento;
+        
+        $nombre = $student->sufix." ".$student->nombre." ".$student->apellido_paterno." ".$student->apellido_materno;
+        $nombrec = $student->sufix.$student->nombre.$student->apellido_paterno.$student->apellido_materno;
  
         // $pdf = Pdf::loadView('certificate.pdf', ['nombre' =>$nombre, 'certificate' => $certificate, 'image' => $image])->setPaper('carta', 'landscape');
         // return $pdf->stream();
 
         $pdf = Pdf::loadView('certificate.pdf', ['nombre' =>$nombre, 'student' =>$student, 'certificate' => $certificate, 'image' => $image])->setPaper('carta', 'landscape');
-        return $pdf->download('Certificado_'.$nombrec.'.pdf');
+        return $pdf->download('Certificado_'.$nombrec.'_'.$nevent.'.pdf');
         
         return view('certificate.pdf', compact('student', 'image', 'certificate', 'event', 'nombre')); 
     }

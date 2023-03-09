@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Roles')
 
 @section('css')
 
@@ -32,7 +32,7 @@
 
 @can('Crear Role')
     <div class="card-header">
-        <a href="{{route('admin.roles.create')}}" class="btn btn-primary">Agregar roles</a>
+        <a href="{{route('admin.roles.create')}}" class="btn btn-warning">Agregar roles</a>
     </div>
     <br>
 @endcan

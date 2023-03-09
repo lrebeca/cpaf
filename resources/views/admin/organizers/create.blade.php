@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear Provincia')
+@section('title', 'Organizador')
 
 @section('content_header')
-    <h1>Crear Nueva Unidad </h1>
+    <h1>Añadir Organizador</h1>
 @stop
 
 @section('content')
@@ -52,7 +52,7 @@
         @enderror
         
         <br><br>
-        {!! Form::submit('Crear', ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit('Crear', ['class' => 'btn btn-outline-primary']) !!}
 
         {!! Form::close() !!}
     </div>

@@ -61,10 +61,11 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'Leer Participantes Aprobados']);
         Permission::create(['name' => 'Editar Participantes Aprobados']);
         Permission::create(['name' => 'Eliminar Participantes Aprobados']);
+        Permission::create(['name' => 'Certificado Participantes Aprobados']);
 
         Permission::create(['name' => 'Leer Participantes Rechazados']);
         Permission::create(['name' => 'Editar Participantes Rechazados']);
-        Permission::create(['name' => 'Eliminar Participantes Rechazados']);
+        Permission::create(['name' => 'Eliminar Participantes Rechazados']); 
 
         Permission::create(['name' => 'Crear Certificados']);
         Permission::create(['name' => 'Leer Certificados']);

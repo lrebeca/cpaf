@@ -19,7 +19,7 @@
                 @include('admin.events.partials.form')
 
             <br>
-            {!! Form::submit('Crear actividad', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Crear Evento', ['class' => 'btn btn-secondary']) !!}
             <br>
             {!! Form::close() !!}
         </div>        

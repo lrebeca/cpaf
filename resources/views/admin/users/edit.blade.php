@@ -31,7 +31,7 @@
                     </label>
                 </div>
             @endforeach
-            {!! Form::submit('Asignar Rol', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Asignar Rol', ['class' => 'btn btn-warning']) !!}
             <br>
  
             {!! Form::close() !!}

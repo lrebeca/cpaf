@@ -4,21 +4,33 @@
     <link rel="shortcut icon" href="{{asset('favicons/favicon.ico')}}" type="image/x-ico">
     
     <title>CPCF</title>
+    <style>
+        /* Bienvenida */
+        .bienvenida h1{
+                color: rgb(4, 4, 70);
+                padding-top: 3%;
+                padding-bottom: 2%;
+                text-align: center;
+                font-weight: 500;
+                font-size: 35px;
+                font-family:Verdana, Geneva, Tahoma, sans-serif;
+            }
+    </style>
     
 <body onload="certificar()">
     <div class="container-fluid p-5 bg-dark"></div>
     {{-- Bienvenida a la pagina de registro --}}
-    <div class="alert alert-dark text-center">
-        <h1>Certificado {{ $event->evento }} </h1>
+    <div class="alert bienvenida">
+        <h1>{{$event->evento}}</h1>
     </div>
 
     {{-- Certificado del estudiante --}}
     <div class="container relative">
 
-                <img id="fondo" src="{{Storage::url($image->imagen)}}" style="display: none">
+                <img id="fondo" src="{{Storage::url($image->imagen)}}" style="display: none" class="img-fluid">
 
             <center>
-                <canvas id="certificado" width="877" height="620" style="border:1px solid #d3d3d3;" ></canvas>
+                <canvas id="certificado" width="877" height="620" style="border:1px sxolid #d3d3d3;" class="img-fluid"></canvas>
             </center>
             <br>
             <center>
@@ -67,7 +79,7 @@
 
         ctx.font = 'bold 30px Arial';
         ctx.fillStyle = 'black';
-        ctx.fillText(<?= json_encode($nombre) ?>, 200, 370);
+        ctx.fillText(<?= json_encode($nombre) ?>, 150, 205);
     }
     
     function png()

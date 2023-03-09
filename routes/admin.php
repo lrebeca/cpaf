@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\DetailController;
 use App\Http\Controllers\Admin\DocumentController;
@@ -12,11 +13,14 @@ use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\OrganizerController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProvinceController;
+use App\Http\Controllers\Admin\ReadyController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\Student\AprobadoController;
 use App\Http\Controllers\Admin\Student\EnviadoController;
 use App\Http\Controllers\Admin\Student\RechazadoController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\BackupController;
+use App\Models\Attendances;
 
 //Route::get('', [HomeController::class, 'index']);
 
@@ -24,7 +28,7 @@ Route::get('', [HomeController::class, 'index'])->middleware('can:Ver dashboard'
 
 Route::resource('roles', RoleController::class)->names('admin.roles');
 Route::resource('users', UserController::class)->only('index', 'edit', 'update', 'destroy')->names('admin.users');
-Route::resource('profiles', ProfileController::class)->names('admin.profiles');
+Route::resource('profiles', ProfileController::class)->names('admin.profiles'); 
 Route::resource('organizers', OrganizerController::class)->names('admin.organizers');
 Route::resource('provinces',ProvinceController::class)->names('admin.provinces');
 Route::resource('events', EventController::class)->names('admin.events');
@@ -53,6 +57,7 @@ Route::delete('enviado/destroy/{student}',[EnviadoController::class,'destroy'])-
 
 Route::get('aprobado',[AprobadoController::class,'index'])->name('admin.students.aprobado.index');
 Route::get('aprobado/edit/{student}',[AprobadoController::class,'edit'])->name('admin.students.aprobado.edit');
+Route::get('aprobado/certificate/{student}',[AprobadoController::class,'certificate'])->name('admin.students.aprobado.certificate');
 Route::put('aprobado/update/{student}',[AprobadoController::class,'update'])->name('admin.students.aprobado.update');
 Route::delete('aprobado/destroy/{student}',[AprobadoController::class,'destroy'])->name('admin.students.aprobado.destroy');
 
@@ -74,4 +79,39 @@ Route::post('enviado/{student}/rechazado', [EnviadoController::class, 'rechazado
 Route::get('events/aprobados/{event}',[EventController::class,'aprobados'])->name('admin.events.aprobados');
 Route::get('events/pendientes/{event}',[EventController::class,'pendientes'])->name('admin.events.pendientes');
 Route::get('events/rechazados/{event}',[EventController::class,'rechazados'])->name('admin.events.rechazados');
+
+// rutas de listar estudiantes Readys
+
+Route::get('readys', [ReadyController::class, 'index'])->name('admin.readys.index');
+Route::get('readys/create/{event}', [ReadyController::class, 'create'])->name('admin.readys.create');
+Route::post('readys/create', [ReadyController::class, 'store'])->name('admin.readys.store');
+Route::get('readys/show/{id}', [ReadyController::class, 'show'])->name('admin.readys.show');
+Route::get('readys/edit/{ready}', [ReadyController::class, 'edit'])->name('admin.readys.edit');
+Route::put('readys/update/{ready}', [ReadyController::class, 'update'])->name('admin.readys.update');
+Route::delete('readys/destroy/{ready}', [ReadyController::class, 'destroy'])->name('admin.readys.destroy');
+
+// Rutas de la asistencia
+
+Route::post('attendances/presente',[AttendanceController::class, 'presente'])->name('admin.attendances.presente');
+Route::put('attendances/editpresente/{attendance}',[AttendanceController::class, 'editpresente'])->name('admin.attendances.editpresente');
+Route::post('attendances/falta',[AttendanceController::class, 'falta'])->name('admin.attendances.falta');
+Route::put('attendances/editfalta/{attendance}',[AttendanceController::class, 'editfalta'])->name('admin.attendances.editfalta');
+Route::put('attendances/editlicencia/{attendance}',[AttendanceController::class, 'editlicencia'])->name('admin.attendances.editlicencia');
+
+//descargar pdfs
+
+Route::get('events/aprobadospdf/{event}',[EventController::class,'aprobadospdf'])->name('admin.events.aprobadospdf');
+Route::get('events/enviadospdf/{event}',[EventController::class,'enviadospdf'])->name('admin.events.enviadospdf');
+Route::get('events/rechazadospdf/{event}',[EventController::class,'rechazadospdf'])->name('admin.events.rechazadospdf');
+
+Route::get('readys/pfd/{id}', [ReadyController::class, 'pdf'])->name('admin.readys.pdf');
+
+// Rutas de backup 
+
+Route::get('backups', [BackupController::class, 'index'])->name('admin.backups.index');
+Route::get('backups/backup', [BackupController::class, 'backup'])->name('admin.backups.backup');
+
+Route::get('backups/download/{file_name}', [BackupController::class, 'download'])->name('admin.backups.download');
+
+
 

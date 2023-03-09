@@ -22,7 +22,7 @@
 
 @can('Crear Organizadores')
     <div class="card-header">
-        <a href="{{route('admin.organizers.create')}}" class="btn btn-primary">Agregar Nueva Unidad</a>
+        <a href="{{route('admin.organizers.create')}}" class="btn btn-outline-primary">Agregar Nueva Unidad</a>
     </div><br> 
 @endcan
 
@@ -32,7 +32,6 @@
             <thead class="table-dark">
                 <th>Id</th>
                 <th>Unidad</th>
-                <th>Provincia</th>
                 <th>Detalle</th>
                 @can('Editar Organizadores')
                 <th>

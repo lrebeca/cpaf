@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Organizador')
 
 @section('content_header')
     <h1>Editar la unidad {{$organizer->unidad}} </h1>
@@ -51,7 +51,7 @@
                 <span class="text-danger">{{$message}}</span>
             @enderror
             
-            {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Actualizar', ['class' => 'btn btn-outline-primary']) !!}
     
             {!! Form::close() !!}
         </div>

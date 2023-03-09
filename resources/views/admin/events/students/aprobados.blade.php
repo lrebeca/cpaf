@@ -21,7 +21,10 @@
 </div>
 
 <div>
-    <h4>Total de estudiantes participantes de este evento: {{$count}}</h4><br>
+    <h4>Total de participantes aceptados: {{$count}}</h4><br>
+
+    <a href="{{route('admin.events.aprobadospdf', $event)}}" class="btn btn-info btn-outline-dark">Descargar lista</a> <br><br>
+
 </div>
 
 <div class="car">
@@ -29,6 +32,7 @@
         <table id="participantes" class="table dt-responsive table-striped nowrap">
             <thead class="table-dark">
                 <th>Id</th>
+                <th>Sufix</th>
                 <th>Nombre</th>
                 <th>Apellido Paterno</th>
                 <th>Apellido Materno</th>
@@ -46,11 +50,16 @@
                 @can('Eliminar Participantes Aprobados')
                 <th>Eliminar</th>
                 @endcan
+                <th>Certificado</th>
+                @can('Rechazar Participante')
+                <th></th>
+                @endcan
             </thead>
             <tbody>
                 @foreach ($students as $student)
                         <tr>
                             <td>{{$student->id}}</td>
+                            <td>{{$student->sufix}}</td>
                             <td>{{$student->nombre}}</td>
                             <td>{{$student->apellido_paterno}}</td>
                             <td>{{$student->apellido_materno}}</td>
@@ -61,7 +70,9 @@
                             <td>{{$student->n_celular}}</td>
                             <td>{{$student->n_deposito}}</td>
                             <td>
-                                <img src="{{Storage::url($student->img_deposito)}}" class="img-fluid" width="50%">
+                                @isset($student->img_deposito)
+                                <center><img src="{{Storage::url($student->img_deposito)}}" class="img-fluid" width="50%"></center>
+                                @endisset
                             </td>
                             <td>{{$student->progreso}}</td>
                             @can('Editar Participantes Aprobados')
@@ -79,13 +90,29 @@
                                 <form action="{{route('admin.students.aprobado.destroy', $student)}}" method="POST">
                                     @method('delete')
                                     @csrf
-                                    Eliminar:
                                     <button type="submit" value="Eliminar" class="btn btn-outline-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                         <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"></path>
                                         </svg>
                                     </button>
                                 </form>
+                            </td>
+                            @endcan
+                            <td>
+                            @foreach ($certificates as $certificate)
+                                @if ($certificate->id_evento == $event->id)
+                                    <a href="{{route('admin.students.aprobado.certificate', $student)}}" class="btn btn-outline-dark">Certificado</a>
+                                @else
+                                    El Evento aun no tiene certificado
+                                @endif
+                            @endforeach
+                            </td>
+                            @can('Rechazar Participante')
+                            <td>
+                                <form action="{{route('admin.students.rechazado.observar', $student)}}" method="POST">
+                                    @csrf
+                                    <button class="btn btn-danger" type="submit">Observar participante</button>  
+                                </form> 
                             </td>
                             @endcan
                         </tr>
@@ -107,6 +134,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <style>
+        img{
+            width: 50%;
+            height: 50%;
+            transition: 0.5;
+            object-fit: cover;
+        }
+        img:hover{
+            transform: scale(2);
+        }
+    </style>
 @stop
 
 @section('js')

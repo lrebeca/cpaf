@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Editar Información')
 
 @section('content_header')
     <h1>Detalles</h1>
 @stop
 
 @section('content')
-    <p>Edite los detalles del Evento </p>
+    <p>Edite la información</p>
 
     @if (session('info'))
     <div class="alert alert-success">
@@ -55,7 +55,7 @@
                 @enderror
 
             <br>
-            {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Actualizar', ['class' => 'btn btn-info']) !!}
             <br>
 
             {!! Form::close() !!}

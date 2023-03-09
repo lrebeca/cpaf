@@ -12,7 +12,7 @@
 
 @can('Crear Certificados')
     <div class="card-header">
-        <a href="{{route('admin.certificates.create')}}" class="btn btn-primary">Agregar nuevo certificado</a>
+        <a href="{{route('admin.certificates.create')}}" class="btn btn-info">Agregar nuevo certificado</a>
     </div>
     <br>
 @endcan
@@ -99,6 +99,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css">
+    <style>
+        img{
+            width: 50%;
+            height: 50%;
+            transition: 0.5;
+            object-fit:scale-down;
+        }
+        img:hover{
+            transform: scale(2);
+        }
+    </style>
 @stop
 
 @section('js')

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Informaciones')
 
 @section('css')
 
@@ -32,7 +32,7 @@
 
 @can('Crear Detalles')
     <div class="card-header">
-        <a href="{{route('admin.events.createdetail', $event)}}" class="btn btn-primary">Agregar detalle</a>
+        <a href="{{route('admin.events.createdetail', $event)}}" class="btn btn-info">Agregar detalle</a>
     </div>
     <br> 
 @endcan

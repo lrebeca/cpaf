@@ -14,6 +14,19 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+    <style>
+        img{
+            width: 40%;
+            height: 40%;
+            transition: 0.5;
+            object-fit: cover;
+        }
+        img:hover{
+            transform: scale(1.2);
+        }
+    </style>
+
 @stop
 
 @section('content_header')
@@ -33,7 +46,7 @@
 
 @can('Crear Eventos')
     <div class="card-header">
-        <a href="{{route('admin.events.create')}}" class="btn btn-primary">Planificar un nuevo evento</a>
+        <a href="{{route('admin.events.create')}}" class="btn btn-secondary">Planificar un nuevo evento</a>
     </div>
     <br>
 @endcan
@@ -56,7 +69,7 @@
                     <th>Expositor</th>
                     <th>Organizador</th>
                     @can('Editar Eventos')
-                    <th>Editar</th>
+                    <th>Editar</th> 
                     @endcan
                     @can('Eliminar Eventos')
                     <th>Eliminar</th>
@@ -92,7 +105,11 @@
                                     <td>{{$event->fecha_inicio}}</td>
                                     <td>{{$event->fecha_fin}}</td>
                                     <td>
-                                        <img src="{{Storage::url($event->imagen)}}" class="img-fluid" width="50%">
+                                        @isset($event->imagen)
+                                            <center><img src="{{Storage::url($event->imagen)}}"  class="img-fluid" ></center>
+                                        @else
+                                            <center><img src="{{asset('asset/img/DSC_0111.jpg')}}" class="img-fluid"></center>
+                                        @endisset
                                     </td>
                                     <td>
                                         <a href="{{$event->link_whatsapp}}" class="btn">
@@ -126,10 +143,9 @@
                                     @endcan
                                     @can('Eliminar Eventos')
                                     <td>
-                                        <form action="{{route('admin.events.destroy', $event)}}" method="POST">
+                                        <form action="{{route('admin.events.destroy', $event)}}" method="POST" style="display: inline-block">
                                             @method('delete')
                                             @csrf
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <button type="submit" value="Eliminar" class="btn btn-outline-danger">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"></path>
@@ -139,13 +155,15 @@
                                     </td>
                                     @endcan
                                     <td><br>
-                                        <a href="{{route('admin.events.detalles', $event)}}" class="btn btn-outline-dark">Ver Detalles</a><br><br>
+                                        <a href="{{route('admin.events.detalles', $event)}}" class="btn btn-outline-dark">Ver Detalles</a>
                                         <a href="{{route('admin.events.documentos', $event)}}" class="btn btn-outline-dark">Ver Documentos</a>
                                     </td>
                                     <td><br>
-                                        <a href="{{route('admin.events.aprobados', $event)}}" class="btn btn-outline-primary">Aprobados</a><br><br>
-                                        <a href="{{route('admin.events.pendientes', $event)}}" class="btn btn-outline-secondary">Pendientes</a><br><br>
+                                        <a href="{{route('admin.events.aprobados', $event)}}" class="btn btn-outline-primary">Aprobados</a>
+                                        <a href="{{route('admin.events.pendientes', $event)}}" class="btn btn-outline-secondary">Pendientes</a>
                                         <a href="{{route('admin.events.rechazados', $event)}}" class="btn btn-outline-danger">Rechazados</a>
+
+                                        <a href="{{route('admin.readys.show', $event->id)}}" class="btn btn-outline-success"> Control de asistencia </a>
                                     </td>
                                     <td>
                                         @foreach ($certificates as $certificate)

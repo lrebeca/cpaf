@@ -5,7 +5,7 @@
 {{-- @section('plugins.Sweetalert2', true) --}}
 
 @section('content_header')
-    <h1>Lista de usuarios</h1>
+    <h1>Perfil de usuario</h1>
 @stop
 
 @section('content')
@@ -18,41 +18,50 @@
         </div>
     @endif
     
-    @foreach($profiles as $profile)
-    
-    @if(auth()->user())
-        {{$profile}}
-    @else
-    <tr>
-        Perfil no actualizado: 
-        <a href="{{route('admin.profiles.create')}}" class="btn btn-primary">Actualizar</a>
-    </tr>
-    @endif
-    <br><br>
-
     <div class="card">
         <div class="card-body">
-        
-            <table class="table table-responsive-sm " border>
-                <tr>
-                    <th>Nombre Completo:</th>
-                    <td>{{auth()->user()->name}}</td>
-                </tr>
-                <tr>
-                    <th>Email:</th>
-                    <td>{{auth()->user()->email}}</td>
-                </tr>
-                <tr>
-                    <th colspan="2">                       
-                        <a href="{{route('admin.profiles.edit', $user = auth()->user()->id)}}" class="btn btn-primary">Editar Formulario</a>
-                    </th>   
-                </tr> 
-            </table>
+            @isset($perfil)
+                
+                @isset($perfil->foto)
+                    <center><img src="{{Storage::url($perfil->foto)}}" id="perfil" class="img-fluid"></center>
+                @else
+                    No tiene una foto de perfil
+                @endisset
+                <hr>
+            <center style="padding-left: 25%; padding-right: 25%;">
+                <table class="table table-striped table-hover">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Nombre: </th><td>{{ $user->name }}</td>
+                        </tr><tr>
+                            <th scope="row">Email:</th><td>{{ $user->email }}</td>
+                        </tr><tr>
+                            <th scope="row">Sufijo:</th><td>{{ $perfil->suffix }}</td>
+                        </tr><tr>
+                            <th scope="row">Dirección:</th><td> {{ $perfil->direccion }}</td>
+                        </tr><tr>
+                            <th scope="row">Número de celular:</th><td> {{ $perfil->num_celular }}</td>
+                        </tr><tr>
+                            <th scope="row">Biografía:</th><td> {!!strip_tags($perfil->biography)!!}</td>
+                        </tr><tr>
+                            <th scope="row">Link de Facebook:</th><td> {{ $perfil->facebook }}</td>
+                        </tr><tr>
+                            <th scope="row">Link de Youtube:</th><td> {{ $perfil->youtube }}</td>
+                        </tr><tr>
+                            <th scope="row">Link de website: </th><td> {{ $perfil->website }}</td>
+                        </tr>
+                      </tbody>
+                </table>
+                <div>
+                    <a href="{{route('admin.profiles.edit', $perfil)}}" class="btn btn-outline-primary">
+                        Editar Perfil   
+                    </a>
+                </div>            
+            </center>
+            @endisset
         </div>
     </div>
-
-    @endforeach
-
+   
     <div class="card-header">
         <a href="javascript: history.go(-1)">Volver</a><br><br>
     </div>
@@ -65,6 +74,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+    <style>
+        #perfil{
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
 @stop
 
 @section('js')

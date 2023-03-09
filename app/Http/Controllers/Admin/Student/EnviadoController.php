@@ -10,7 +10,6 @@ use App\Models\Admin\Event;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class EnviadoController extends Controller
@@ -82,7 +81,7 @@ class EnviadoController extends Controller
     {
        $student->delete();
 
-        return redirect()->route('admin.students.enviado.index')->with('info','El participante se ha eliminado');
+        return redirect()->back()->with('info','El participante se ha eliminado');
     }
     /**
      * Show the form for creating a new resource.
@@ -101,7 +100,7 @@ class EnviadoController extends Controller
         // Para que se envie un correo de electronico 
 
         $email = new ApprovedStudent($student);
-        Mail::to($student->email)->send($email);
+        //Mail::to($student->email)->send($email);
 
         return back();
     }
@@ -119,14 +118,19 @@ class EnviadoController extends Controller
         $student->progreso = 'rechazado';
         $student->save();
         
-        // Para que se envie un correo de electronico 
+        // Para que se envie un correo electronico 
 
         $email = new RejectStudent($student);
-        Mail::to($student->email)->send($email);
+        //Mail::to($student->email)->send($email);
 
         $students = Student::all();
-        $events = Event::all();
+        $id_evento = $student->id_evento;
+        $event = Event::find($id_evento);
 
-        return view('admin.students.enviado', compact('students', 'events'));
+        $id = $event->id;
+        $students = Student::where([['id_evento','=',$id], ['progreso', '=', 'rechazado']])->get();
+        $count = $students->count();
+
+        return view('admin.events.students.rechazados', compact('students', 'event', 'count'));
     }
 }

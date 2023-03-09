@@ -71,7 +71,7 @@
         'usermenu_header_class' => 'bg-danger',
         'usermenu_image' => true,
         'usermenu_desc' => true,
-        'usermenu_profile_url' => true,
+        'usermenu_profile_url' => false,
 
         /*
         |--------------------------------------------------------------------------
@@ -200,7 +200,7 @@
         'register_url' => 'register',
         'password_reset_url' => 'password/reset',
         'password_email_url' => 'password/email',
-        'profile_url' => true,
+        'profile_url' => false,
 
         /*
         |--------------------------------------------------------------------------
@@ -261,6 +261,13 @@
             ],
 
             ['header' => 'ADMINISTRADOR'],
+            [
+                'text' => 'Perfil ',
+                'route'  => 'admin.profiles.index', 
+                'icon' => 'fas fa-fw fa-user',
+                'active' =>['admin/profiles*'],
+                'icon_color' => 'warning'
+            ],
             [
                 'text' => 'Usuarios ',
                 'route'  => 'admin.users.index',
@@ -344,7 +351,7 @@
             ],
 
             [
-                'text' => 'Pendientes de aprobación',
+                'text' => 'Pendientes de revisión',
                 'route'  => 'admin.students.enviado.index',
                 'icon' => 'fas fa-fw fa-exclamation-circle',
                 'can' => 'Leer Participantes Pendientes',
@@ -379,7 +386,15 @@
                 'can'   => 'Leer Imagenes',
                 'icon_color' => 'info'
             ],
-
+            ['header' => ''],
+            [
+                'text' => 'Copias de seguridad',
+                'route' => 'admin.backups.index',
+                'icon' => 'fas fad fa-database',
+                'can'   => 'Leer Usuarios',
+                'icon_color' => 'light'
+            ],
+            ['header' => ''],
         ],
 
         /*

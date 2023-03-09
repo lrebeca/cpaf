@@ -15,7 +15,7 @@
             @include('admin.certificates.partials.form')
 
         <br>
-        {!! Form::submit('Crear Certificado', ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit('Crear Certificado', ['class' => 'btn btn-info']) !!}
         <br>
 
         {!! Form::close() !!}

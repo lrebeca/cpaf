@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EventRequest;
+use App\Http\Requests\EventRequestEdit;
 use App\Models\Admin\Event;
 use App\Models\Certificate;
 use App\Models\Detail;
@@ -13,7 +14,7 @@ use App\Models\Organizer;
 use App\Models\Province;
 use App\Models\Student;
 use App\Models\User;
-use Illuminate\Support\Facades\Cache;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
@@ -132,7 +133,7 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EventRequest $request, Event $event)
+    public function update(EventRequestEdit $request, Event $event)
     {
       
         $this->authorize('author', $event);
@@ -216,8 +217,9 @@ class EventController extends Controller
         $id = $event->id;
         $students = Student::where([['id_evento','=',$id], ['progreso', '=', 'aprobado']])->get();
         $count = $students->count();
+        $certificates = Certificate::all();
         
-        return view('admin.events.students.aprobados', compact('students', 'event', 'count'));
+        return view('admin.events.students.aprobados', compact('students', 'event', 'count','certificates'));
     }
 
     public function pendientes(Event $event)
@@ -247,4 +249,63 @@ class EventController extends Controller
  
         return view('admin.events.certificado', compact('certificates', 'event', 'images'));        
     }
+
+    public function listar(Event $event)
+    {
+        $id = $event->id;
+        $students = Student::where([['id_evento','=',$id], ['progreso', '=', 'aprobado']])->get();
+        $count = $students->count();
+        $certificates = Certificate::all();
+
+        
+        return view('admin.events.students.aprobados', compact('students', 'event', 'count','certificates'));
+    }
+
+    // PDFS
+
+    public function aprobadospdf(Event $event)
+    {
+        $id = $event->id;
+        $students = Student::where([['id_evento','=',$id], ['progreso', '=', 'aprobado']])->get();
+        $count = $students->count();
+        $certificates = Certificate::all();
+        $n = 0;
+        
+        // return view('admin.events.students.pdfaprobados', compact('students', 'event', 'count','certificates', 'n'));
+
+        $pdf = Pdf::loadView('admin.events.students.pdfaprobados', ['students'=>$students, 'event'=>$event, 'count'=>$count, 'n'=>$n])->setPaper('legal', 'landscape');
+        return $pdf->download('pdf'.'aprobados_'.$event->evento.'.pdf');
+        return view('admin.events.students.pdfaprobados', compact('students', 'event', 'count','certificates', 'n'));
+    }
+
+    public function enviadospdf(Event $event)
+    {
+        $id = $event->id;
+        $students = Student::where([['id_evento','=',$id], ['progreso', '=', 'enviado']])->get();
+        $count = $students->count();
+        $certificates = Certificate::all();
+        $n = 0;
+        
+        // return view('admin.events.students.pdfaprobados', compact('students', 'event', 'count','certificates', 'n'));
+
+        $pdf = Pdf::loadView('admin.events.students.pdfenviados', ['students'=>$students, 'event'=>$event, 'count'=>$count, 'n'=>$n])->setPaper('carta', 'landscape');
+        return $pdf->download('pdf'.'enviados_'.$event->evento.'.pdf');
+        return view('admin.events.students.pdfenviados', compact('students', 'event', 'count','certificates', 'n'));
+    }
+
+    public function rechazadospdf(Event $event)
+    {
+        $id = $event->id;
+        $students = Student::where([['id_evento','=',$id], ['progreso', '=', 'rechazado']])->get();
+        $count = $students->count();
+        $certificates = Certificate::all();
+        $n = 0;
+        
+        // return view('admin.events.students.pdfaprobados', compact('students', 'event', 'count','certificates', 'n'));
+
+        $pdf = Pdf::loadView('admin.events.students.pdfrechazados', ['students'=>$students, 'event'=>$event, 'count'=>$count, 'n'=>$n])->setPaper('carta', 'landscape');
+        return $pdf->download('pdf'.'rechazados_'.$event->evento.'.pdf');
+        return view('admin.events.students.pdfrechazados', compact('students', 'event', 'count','certificates', 'n'));
+    }
+
 }

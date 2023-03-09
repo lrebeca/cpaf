@@ -22,6 +22,14 @@
             font-size: 30px;
             font-family:Verdana, Geneva, Tahoma, sans-serif;
         }
+        #imagen{
+            width: 60%;
+            transition: 0.5;
+            object-fit: cover;
+        }
+        #imagen:hover{
+            transform: scale(1.2);
+        }
     </style>
 <body>
     
@@ -36,10 +44,14 @@
         <div class="col">
             <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
                 @isset($event->imagen)
-                    <img id="img" src="{{Storage::url($event->imagen)}}"  class="img-fluid">
+                <center>
+                    <img id="imagen" src="{{Storage::url($event->imagen)}}"  class="img-fluid">
+                </center>
                 @else
                     <div class="image-wrapper">
-                        <img id="img" src="{{asset('asset/img/DSC_0006.jpg')}}" class="img-fluid">
+                        <center>
+                            <img id="imagen" src="{{asset('asset/img/DSC_0111.jpg')}}" class="img-fluid">  
+                        </center>
                     </div>
                 @endisset
             </div>
@@ -52,6 +64,18 @@
                 <p class="card-text text-center">
                     {!! $event->detalle !!}
                 </p>
+
+                @if(count($event->users)>0)
+                    <h5 class="card-title text-center">Expositor o Expositores</h5>
+                @endif
+
+                {{-- Lista de expositores --}}
+
+                <ol style="text-align: left">
+                    @foreach ($event->users as $user)
+                        <li><a href="{{route('exhibitors.show', $user->id)}}">{{$user->name}}</a></li>
+                    @endforeach
+                </ol>
             <div class="card-text text-center">
 
                 @if($date > $event->fecha_fin)
@@ -173,9 +197,12 @@
                             {!! Form::hidden('id_evento', $event->id) !!}
                             {!! Form::hidden('estado', 'estudiante') !!}
                             {!! Form::hidden('costo_e', $event->costo_student) !!}
+                            {!! Form::hidden('progreso', 'enviado') !!}
 
                             <div class="btn-danger">
-                                <br><p>En caso de ser deposito el Participante deberá apersonarse a las oficinas de administracion para poder dejar la factura de su deposito para confirmar su inscripción.</p> <br>
+                                <br><p>En caso de ser depósito el participante deberá apersonarse a las oficinas de 
+                                    administración para poder dejar la factura de 
+                                    su depósito para confirmar su inscripción.</p> <br>
                             </div><br>
                             
                             {{-- Carrera --}}
@@ -224,17 +251,21 @@
                             {!! Form::hidden('id_evento', $event->id) !!}
                             {!! Form::hidden('estado', 'profesional') !!}
                             {!! Form::hidden('costo_e', $event->costo_prof) !!}
+                            {!! Form::hidden('progreso', 'enviado') !!}
 
                             <div class="btn-danger">
-                                <br><p>En caso de ser deposito el Participante deberá apersonarse a las oficinas de administracion para poder dejar la factura de su deposito para confirmar su inscripción.</p> <br>
+                                <br><p>En caso de ser depósito el participante deberá apersonarse a las oficinas de 
+                                    administración para poder dejar la factura de 
+                                    su depósito para confirmar su inscripción.</p> <br>
                             </div><br>
                         
                             <div class="form-group mb-3">
                                 {!! Form::label('sufix', 'Seleccionar') !!}
-                                {!! Form::select('sufix', ['Ingeniero'=>'Ingeniero', 
-                                                            'Licenciado'=>'Licenciado', 
-                                                            'Doctor'=>'Doctor',
-                                                            'Abogado0'=>'Abogado'
+                                {!! Form::select('sufix', ['Ing.'=>'Ingeniero', 
+                                                            'Lic.'=>'Licenciado', 
+                                                            'Dr.'=>'Doctor',
+                                                            'Abg.'=>'Abogado',
+                                                            ''=>'Ninguno'
                                                         ], null, ['class' => 'form-control', 'placeholder' => '--- Seleccion ---']) !!}
                             </div>
                             
@@ -274,6 +305,7 @@
                             {!! Form::hidden('id_evento', $event->id) !!}
                             {!! Form::hidden('estado', 'estudiante') !!}
                             {!! Form::hidden('costo_e', '0') !!}
+                            {!! Form::hidden('progreso', 'enviado') !!}
 
                             {{-- <input type="hidden" name="id_evento" value="{{$event->id}}"> --}}
 
@@ -325,13 +357,15 @@
                             {!! Form::hidden('id_evento', $event->id) !!}
                             {!! Form::hidden('estado', 'profesional') !!}
                             {!! Form::hidden('costo_e', "0") !!}
+                            {!! Form::hidden('progreso', 'enviado') !!}
 
                             <div class="form-group mb-3">
                                 {!! Form::label('sufix', 'Seleccionar') !!}
-                                {!! Form::select('sufix', ['Ingeniero'=>'Ingeniero', 
-                                                            'Licenciado'=>'Licenciado', 
-                                                            'Doctor'=>'Doctor',
-                                                            'Abogado0'=>'Abogado'
+                                {!! Form::select('sufix', ['Ing.'=>'Ingeniero', 
+                                                            'Lic.'=>'Licenciado', 
+                                                            'Dr.'=>'Doctor',
+                                                            'Abg.'=>'Abogado',
+                                                            ''=>'Ninguno'
                                                         ], null, ['class' => 'form-control', 'placeholder' => '--- Seleccion ---']) !!}
                             </div>
                             

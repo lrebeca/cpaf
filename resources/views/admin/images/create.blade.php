@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Admin')
+@section('title', 'Agregar Imagen')
 
 @section('plugins.Sweetalert2', true)
 
@@ -34,7 +34,7 @@
             </div>
             
             <br>
-            {!! Form::submit('Agregar imagen', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Agregar imagen', ['class' => 'btn btn-info']) !!}
             <br>
 
             {!! Form::close() !!}

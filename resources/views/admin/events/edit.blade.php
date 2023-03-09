@@ -7,7 +7,6 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
 
     @if (session('info'))
         <div class="alert alert-success">
@@ -27,7 +26,7 @@
                 @include('admin.events.partials.form')
         
                 <br>
-            {!! Form::submit('Actulizar evento', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Actulizar evento', ['class' => 'btn btn-secondary']) !!}
                 <br>
 
             {!! Form::close() !!}

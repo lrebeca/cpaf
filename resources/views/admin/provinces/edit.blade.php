@@ -42,7 +42,7 @@
                 @enderror
         
     
-            {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Actualizar', ['class' => 'btn btn-outline-primary']) !!}
     
             {!! Form::close() !!}
         </div>

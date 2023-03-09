@@ -35,7 +35,7 @@ class StudentFactory extends Factory
             'estado'=> $this->faker->randomElement(['estudiante', 'profesional']),
             'pago'=> $this->faker->randomElement(['deposito', 'transferencia']),
             'progreso'=> $this->faker->randomElement(['enviado', 'aprobado', 'rechazado']),
-            'img_deposito' => 'depositos/'. $this->faker->image(public_path('storage/depositos'), 640, 480, null, false),
+            // 'img_deposito' => 'depositos/'. $this->faker->image(public_path('storage/depositos'), 640, 480, null, false),
             'id_evento' => Event::all()->random()->id
         ];
     }

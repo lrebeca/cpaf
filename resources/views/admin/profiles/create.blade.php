@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear Perfil')
+@section('title', 'Actualizar Perfil')
 
 @section('plugins.Sweetalert2', true)
 
 @section('content_header')
-    <h1>Crear Perfil</h1>
+    <h1>Actualizar Perfil</h1>
 @stop
 
 @section('content')
@@ -16,9 +16,29 @@
     <div class="card">
         <div class="card-body">
 
-            {!! Form::open(['route'=>'admin.profiles.store']) !!}
+            {!! Form::open(['route'=>'admin.profiles.store','files' => true]) !!}
 
             {!! Form::hidden('id_user', auth()->user()->id) !!}
+
+           <!-- Imagen  -->
+
+            <div class="row mb-3">
+                
+                <div class="col">
+                    <div class="form-group">
+                        {!! Form::label('foto', 'Foto de perfil') !!} <br>
+                        {!! Form::file('foto', ['accept'=>'image/*', 'class' => 'form-control-file']) !!}
+                    </div>
+                    @error('foto')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="col">
+                    <div class="image-wrapper">
+                        <img id="img" alt="" width="200px" height="200px">
+                    </div>
+                </div>
+            </div>
 
         <!-- Profesión  -->
 
@@ -65,7 +85,7 @@
         @enderror
 
         <span>
-           <br> Estos campos no son necesarios si no los quiere llenar. <br><br>
+           <br> Campos no obligatorios. <br><br>
         </span>
 
         <!-- Link del perfil de Facebook  -->
@@ -102,7 +122,7 @@
         @enderror
 
             <br>
-            {!! Form::submit('Agregar Perfil', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Actualizar Perfil', ['class' => 'btn btn-primary']) !!}
             <br>
 
             {!! Form::close() !!}
@@ -131,4 +151,18 @@
         } );
 
     </script>
+    <script>
+         // Para cambiar la imagen
+         document.getElementById("foto").addEventListener('change', cambiarImagen);
+
+    function cambiarImagen(event){
+        var file = event.target.files[0];
+
+        var reader = new FileReader();
+        reader.onload = (event) => {
+            document.getElementById("img").setAttribute('src', event.target.result);
+        }
+        reader.readAsDataURL(file);
+    }
+        </script>
 @stop

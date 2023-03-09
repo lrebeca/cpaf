@@ -3,7 +3,7 @@
 @section('title', 'Editar Certificado')
 
 @section('content_header')
-    <h1>Certificados</h1>
+    <h1>Edite el certificado</h1>
 @stop
 
 @section('content')
@@ -16,7 +16,7 @@
             @include('admin.certificates.partials.form')
 
         <br>
-        {!! Form::submit('Actualizar Certificado', ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit('Actualizar Certificado', ['class' => 'btn btn-info']) !!}
         <br>
 
         {!! Form::close() !!}

@@ -11,7 +11,7 @@ class profile extends Model
 
     protected $table = 'profiles';
 
-    protected $fillable = ['suffix','direccion','nun_celular','biography','facebook','youtube','whatsapp','website','id_user'];
+    protected $fillable = ['suffix','direccion','foto','num_celular','biography','facebook','youtube','whatsapp','website','id_user'];
 
     // relacion uno a uno con usuario inversa
 

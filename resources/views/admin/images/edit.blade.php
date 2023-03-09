@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Admin')
+@section('title', 'Editar Imagen ')
 
 @section('plugins.Sweetalert2', true)
 
@@ -11,7 +11,7 @@
 
 @section('content')
 
-    <p>Selecciones una imagen</p>
+    <p>Editar la imagen</p>
     <div class="card">
         <div class="card-body">
 
@@ -42,7 +42,7 @@
             </div>
             
             <br>
-            {!! Form::submit('Actualizar imagen', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Actualizar imagen', ['class' => 'btn btn-info']) !!}
             <br>
 
             {!! Form::close() !!}

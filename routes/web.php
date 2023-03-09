@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ExhibitorController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,4 +46,9 @@ Route::get('pdf/{student}', [StudentController::class, 'pdf'])->name('pdf');
 
 // para descargar los documentos de los eventos
 Route::get('document/{document}/descargar', [DocumentController::class, 'descargar'])->name('documents.descargar');
+
+// Rutas para la vista de informacion de los exposotores
+Route::resource('exhibitor', ExhibitorController::class)->names('exhibitors'); 
+
+
 

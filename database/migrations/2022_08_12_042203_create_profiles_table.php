@@ -17,6 +17,7 @@ class CreateProfilesTable extends Migration
             $table->id();
 
             $table->text('suffix')->nullable();
+            $table->string('foto')->nullable();
             $table->string('direccion')->nullable();
             $table->text('num_celular')->nullable();
             $table->longText('biography')->nullable();

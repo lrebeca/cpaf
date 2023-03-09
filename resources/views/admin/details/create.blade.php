@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Añadir Información')
 
 @section('content_header')
     <h1>Detalles</h1>
 @stop
 
 @section('content')
-    <p>Cree los detalles del evento </p>
+    <p>Agregue información para el evento </p>
 
     <div class="card">
         <div class="card-body">
@@ -17,7 +17,6 @@
              <!-- Unidad organizadora -->
                 <div class="form-group">
                     {!! Form::label('id_evento', 'Evento') !!}
-                    {{-- {!! Form::select('id_organizador',$organizers, null, ['class' => 'form-control', 'placeholder'=>'Ingrese la unidad que esta organizando el evento']) !!} --}}
                     
                     <select name="id_evento" id="" class="form-control">
                         <option value="">-- Seleccione un Evento --</option>
@@ -54,7 +53,7 @@
                 @enderror
 
             <br>
-            {!! Form::submit('Crear actividad', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Crear actividad', ['class' => 'btn btn-info']) !!}
             <br>
 
             {!! Form::close() !!}

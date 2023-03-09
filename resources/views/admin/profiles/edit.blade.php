@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear Perfil')
+@section('title', 'Editar Perfil')
 
 @section('plugins.Sweetalert2', true)
 
@@ -14,117 +14,122 @@
     <div class="card">
         <div class="card-body">
 
-            {!! Form::model($user, ['route'=>['admin.profiles.update', $user], 'files' => true, 'method' => 'put']) !!}
+            {!! Form::model($profile, ['route'=>['admin.profiles.update', $profile], 'files' => true, 'method' => 'put']) !!}
 
+            {!! Form::hidden('id_user', auth()->user()->id) !!}
 
-            <!-- Usuario -->
-            <div class="form-group">
-                {!! Form::label('id_user', 'Usuario') !!}
-                {!! Form::text('id_user', null, ['class' => 'form-control', 'placeholder' => '--- Seleccione su usuario ---']) !!}
+           <!-- Imagen  -->
 
+           <div class="row mb-3">
+            <div class="col">
+                <div class="form-group">
+                        {!! Form::label('foto', 'Foto de perfil') !!} <br>
+                        {!! Form::file('foto', ['accept'=>'image/*', 'class' => 'form-control-file']) !!}
+                    </div>
+                    @error('foto')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="col">
+                    @isset ($profile->foto)
+                        <div class="image-wrapper">
+                            <img id="img" src="{{Storage::url($profile->foto)}}" alt=""  width="200px" height="200px">
+                        </div> 
+                    @else
+                        <div class="image-wrapper">
+                            Agregar
+                        </div>
+                    @endisset  
+                </div>
             </div>
 
-            @error('id_user')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
+            <!-- Profesión  -->
 
-            <!-- Correo -->
-            <div class="form-group">
-                {!! Form::label('email', 'Correo') !!}
-                {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => '--- Seleccione su usuario ---']) !!}
+                <div class="form-group">
+                    {!! Form::label('suffix', 'Profesión') !!} 
+                    {!! Form::text('suffix', null, ['class' => 'form-control', 'placeholder'=>'Ej. Licenciado, Ingeniero, ......']) !!}
+                </div>
+                
+                @error('suffix')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
 
-            </div>
-
-            @error('id_user')
-                <span class="text-danger">{{$message}}</span>
-            @enderror
-
-        <!-- Profesión  -->
+            <!-- Dirección  -->
 
             <div class="form-group">
-                {!! Form::label('suffix', 'Profesión') !!} 
-                {!! Form::text('suffix', null, ['class' => 'form-control', 'placeholder'=>'Ej. Licenciado, Ingeniero, ......']) !!}
+                {!! Form::label('direccion', 'Dirección') !!} 
+                {!! Form::text('direccion', null, ['class' => 'form-control', 'placeholder'=>'Ingrese se dirección']) !!}
             </div>
             
-            @error('suffix')
+            @error('direccion')
                 <span class="text-danger">{{$message}}</span>
             @enderror
 
-        <!-- Dirección  -->
+            <!-- Número de Celular  -->
 
-        <div class="form-group">
-            {!! Form::label('direccion', 'Dirección') !!} 
-            {!! Form::text('direccion', null, ['class' => 'form-control', 'placeholder'=>'Ingrese se dirección']) !!}
-        </div>
+            <div class="form-group">
+                {!! Form::label('num_celular', 'Número de Celular') !!} 
+                {!! Form::text('num_celular', null, ['class' => 'form-control', 'placeholder'=>'Ingrese su número de celular']) !!}
+            </div>
+            
+            @error('num_celular')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
+
+            <!-- Biografia  -->
+
+            <div class="form-group">
+                {!! Form::label('biography', 'Biografia') !!} 
+                {!! Form::textarea('biography', null, ['class' => 'form-control', 'placeholder'=>'Detalle una pequeña descripción']) !!}
+            </div>
+            
+            @error('biography')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
+
+            <span>
+            <br> Campos no obligatorios. <br><br>
+            </span>
+
+            <!-- Link del perfil de Facebook  -->
+
+            <div class="form-group">
+                {!! Form::label('facebook', 'Link del perfil de Facebook') !!} 
+                {!! Form::text('facebook', null, ['class' => 'form-control', 'placeholder'=>'Ingrese El link de su perfil de facebook']) !!}
+            </div>
+            
+            @error('facebook')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
+
+            <!-- Link canal de YouTube  -->
+
+            <div class="form-group">
+                {!! Form::label('youtube', 'Link canal de YouTube') !!} 
+                {!! Form::text('youtube', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el link de su canal de YouTube']) !!}
+            </div>
         
-        @error('direccion')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
+            @error('youtube')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
 
-        <!-- Número de Celular  -->
+            <!-- Link de sitio Web  -->
 
-        <div class="form-group">
-            {!! Form::label('num_celular', 'Número de Celular') !!} 
-            {!! Form::text('num_celular', null, ['class' => 'form-control', 'placeholder'=>'Ingrese su número de celular']) !!}
-        </div>
-        
-        @error('num_celular')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
-
-        <!-- Biografia  -->
-
-        <div class="form-group">
-            {!! Form::label('biography', 'Biografia') !!} 
-            {!! Form::textarea('biography', null, ['class' => 'form-control', 'placeholder'=>'Detalle una pequeña descripción']) !!}
-        </div>
-        
-        @error('biography')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
-
-        <span>
-           <br> Estos campos no son necesarios si no los quiere llenar. <br><br>
-        </span>
-
-        <!-- Link del perfil de Facebook  -->
-
-        <div class="form-group">
-            {!! Form::label('facebook', 'Link del perfil de Facebook') !!} 
-            {!! Form::text('facebook', null, ['class' => 'form-control', 'placeholder'=>'Ingrese El link de su perfil de facebook']) !!}
-        </div>
-        
-        @error('facebook')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
-
-        <!-- Link canal de YouTube  -->
-
-        <div class="form-group">
-            {!! Form::label('youtube', 'Link canal de YouTube') !!} 
-            {!! Form::text('youtube', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el link de su canal de YouTube']) !!}
-        </div>
-        
-        @error('youtube')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
-
-        <!-- Link de sitio Web  -->
-
-        <div class="form-group">
-            {!! Form::label('website', 'Link de sitio Web') !!} 
-            {!! Form::text('website', null, ['class' => 'form-control', 'placeholder'=>'Ingrese El link de su sitio web']) !!}
-        </div>
-        
-        @error('website')
-            <span class="text-danger">{{$message}}</span>
-        @enderror
+            <div class="form-group">
+                {!! Form::label('website', 'Link de sitio Web') !!} 
+                {!! Form::text('website', null, ['class' => 'form-control', 'placeholder'=>'Ingrese El link de su sitio web']) !!}
+            </div>
+            
+            @error('website')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
 
             <br>
-            {!! Form::submit('Agregar Perfil', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Guardar cambios', ['class' => 'btn btn-primary']) !!}
             <br>
 
             {!! Form::close() !!}
+            
         </div>
     </div>
 
@@ -150,4 +155,18 @@
         } );
 
     </script>
+     <script>
+        // Para cambiar la imagen
+        document.getElementById("foto").addEventListener('change', cambiarImagen);
+
+   function cambiarImagen(event){
+       var file = event.target.files[0];
+
+       var reader = new FileReader();
+       reader.onload = (event) => {
+           document.getElementById("img").setAttribute('src', event.target.result);
+       }
+       reader.readAsDataURL(file);
+   }
+       </script>
 @stop

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Documentos')
 
 @section('css')
 
@@ -33,7 +33,7 @@
 
 @can('Crear Documentos')
     <div class="card-header">
-        <a href="{{route('admin.events.create')}}" class="btn btn-primary">Subir Documento</a>
+        <a href="{{route('admin.documents.create')}}" class="btn btn-info">Subir Documento</a>
     </div>
     <br> 
 @endcan
@@ -47,10 +47,10 @@
                     <th>Titulo</th>
                     <th>Documento</th>
                     @can('Editar Documentos')
-                    <th>Editar</th>
+                        <th>Editar</th>
                     @endcan
                     @can('Eliminar Documentos')
-                    <th>Eliminar</th>
+                        <th>Eliminar</th>
                     @endcan
                 </thead>
                 <tbody>
@@ -62,7 +62,7 @@
                                     <td>{{$event->evento}}</td>
                                     <td>{!!$document->titulo!!}</td>
                                     <td>
-                                        <iframe src="{{Storage::url($document->documento)}}" frameborder="0"></iframe>
+                                        <a href="{{Storage::url($document->documento)}}"  target="_blank"> Ver </a>
                                     </td>
                                     @can('Editar Documentos')
                                     <td>

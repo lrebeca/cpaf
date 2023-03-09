@@ -37,7 +37,7 @@ class StudentRequest extends FormRequest
             if($this->costo_e > 0){
                 $rules = array_merge($rules, [
                     'n_deposito' => 'required',
-                    'img_deposito' => 'required'
+                    'img_deposito' => 'required|image|max:2048'
                 ]);   
             }
 

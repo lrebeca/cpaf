@@ -1,13 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Informaciones')
 
 @section('content_header')
     <center><h1>{{$event->evento}}</h1></center>
 @stop
 
+
 @section('content')
-    <p> Cree nuevo detalle</p>
+    <p> Agregue Informacion para el evento</p>
 
     <div class="card">
         <div class="card-body">
@@ -48,7 +49,7 @@
                 @enderror
 
             <br>
-            {!! Form::submit('Crear actividad', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Agregar', ['class' => 'btn btn-info']) !!}
             <br>
 
             {!! Form::close() !!}

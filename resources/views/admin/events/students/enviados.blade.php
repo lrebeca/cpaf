@@ -22,6 +22,9 @@
 
 <div>
     <h4>Total estudiantes pendientes de aprobacion: {{$count}}</h4><br>
+
+    <a href="{{route('admin.events.enviadospdf', $event)}}" class="btn btn-info btn-outline-dark">Descargar lista</a> <br><br>
+
 </div>
 
 <div class="car">
@@ -29,6 +32,7 @@
         <table id="participantes" class="table dt-responsive table-striped nowrap">
             <thead class="table-dark">
                 <th>Id</th>
+                <th>Sufix</th>
                 <th>Nombre</th>
                 <th>Apellido Paterno</th>
                 <th>Apellido Materno</th>
@@ -57,6 +61,7 @@
                 @foreach ($students as $student)
                         <tr>
                             <td>{{$student->id}}</td>
+                            <td>{{$student->sufix}}</td>
                             <td>{{$student->nombre}}</td>
                             <td>{{$student->apellido_paterno}}</td>
                             <td>{{$student->apellido_materno}}</td>
@@ -67,7 +72,9 @@
                             <td>{{$student->n_celular}}</td>
                             <td>{{$student->n_deposito}}</td>
                             <td>
-                                <img src="{{Storage::url($student->img_deposito)}}" class="img-fluid" width="50%">
+                                @isset($student->img_deposito)
+                                <center><img src="{{Storage::url($student->img_deposito)}}" class="img-fluid" width="50%"></center>
+                                @endisset
                             </td>
                             <td>{{$student->progreso}}</td>
                             @can('Aprobar Participante')
@@ -128,6 +135,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <style>
+        img{
+            width: 50%;
+            height: 50%;
+            transition: 0.5;
+            object-fit: cover;
+        }
+        img:hover{
+            transform: scale(2);
+        }
+    </style>
 @stop
 
 @section('js')

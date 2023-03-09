@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear')
+@section('title', 'Crear Rol')
 
 @section('content_header')
     <h1>Crear nuevo rol</h1>
@@ -17,7 +17,7 @@
                 @include('admin.roles.partials.form')
 
             <br>
-            {!! Form::submit('Crear actividad', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Crear Rol', ['class' => 'btn btn-warning']) !!}
             <br>
 
             {!! Form::close() !!}

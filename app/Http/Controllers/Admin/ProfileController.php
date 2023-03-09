@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\profile;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -18,11 +17,22 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        $profiles = profile::all();
-        $roles = Role::all();
+        $user = auth()->user();
+        
+        $usuario = $user['id'];
+        $profiles = Profile::all();
 
-        return view('admin.profiles.index', compact('users','profiles', 'roles'));
+        foreach($profiles as $profile)
+        {
+            if($profile->id_user == $usuario)
+            {
+                $perfil = $profile;
+                return view('admin.profiles.index', compact('user', 'perfil'));
+            }
+            
+        }
+
+        return view('admin.profiles.create', compact('user'));
     }
 
     /**
@@ -47,21 +57,25 @@ class ProfileController extends Controller
             ([
                 'id_user' => 'required',
                 'suffix' => 'required',
-                'num_celular' => 'required',
-                'biography' => 'required'
+                'biography' => 'required' 
             ],
             [
                 'id_user.required' => 'El usuario es requerido. ',
                 'suffix.required' => 'La profesión es requerido. ',
-                'num_celular.required' => 'El número de celular es requerido. ',
                 'biography.required' => 'La bigrafia es requerido.',
             ]
         ); 
-        //return $request;
         
-        $profile = Profile::create($request->all());
+        $profile = $request->all();
+        if($request->hasFile('foto')){
 
-        return redirect()->route('admin.profiles.index', $profile)->with('info', 'El perfil del usuario fue actualizado');
+            $profi['foto'] =  $request->file('foto')->getClientOriginalName();
+            $profile['foto'] = $request->file('foto')->storeAs('perfiles', $profi['foto']);
+
+        }
+        $perfil = Profile::create($profile);
+
+        return redirect()->route('admin.profiles.index', $perfil)->with('info', 'El perfil del usuario fue actualizado');
     }
 
     /**
@@ -81,11 +95,9 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {   
-       $user = User::where('id', $id)->get();;
-
-       return view('admin.profiles.edit', compact('user'));
+    public function edit(Profile $profile)
+    {  
+       return view('admin.profiles.edit', compact('profile'));
     }
 
     /**
@@ -95,9 +107,45 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
-    {
-        //
+    public function update(Request $request, Profile $profile)
+    {   
+        $request->validate
+            ([
+                'id_user' => 'required',
+                'suffix' => 'required',
+                'biography' => 'required' 
+            ],
+            [
+                'id_user.required' => 'El usuario es requerido. ',
+                'suffix.required' => 'La profesión es requerido. ',
+                'biography.required' => 'La bigrafia es requerido.',
+            ]
+        ); 
+        
+        if($request->hasFile('foto')){
+
+            $profile['foto'] =  $request->file('foto')->getClientOriginalName();
+            $img = $request->file('foto')->storeAs('perfiles', $profile['foto']);
+
+            if($profile->foto)
+            {
+                Storage::delete($profile->foto);
+
+                $profile->update([
+                    'foto' => $img
+                ]);
+            }
+            else
+            {
+                $profile->create([
+                    'foto' => $img
+                ]);
+            }
+
+        }
+        $perfil = $profile->update($request->only(['suffix','direccion','nun_celular','biography','facebook','youtube','whatsapp','website','id_user','created_at','updated_at']));
+
+        return redirect()->route('admin.profiles.index', $perfil)->with('info', 'Cambios guardados !!');
     }
 
     /**

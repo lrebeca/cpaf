@@ -3,12 +3,7 @@
     {!! Form::label('id_evento', 'Evento') !!}
 
     {!! Form::select('id_evento', $eventos, null, ['class' => 'form-control', 'placeholder' => '--- Seleccione un evento ---']) !!}
-
-    {{-- <select name="id_evento" id="" class="form-control">
-        @foreach ($events as $event)
-            <option value="{{$event->id}}">{{$event->evento}}</option>
-        @endforeach
-    </select> --}}
+ 
 </div>
 
 @error('id_evento')
@@ -29,7 +24,7 @@
 <!-- Fecha -->
 
 <div class="form-group">
-    {!! Form::label('fecha', 'Fecha') !!}
+    {!! Form::label('fecha', 'Fecha de publicación') !!}
     {!! Form::date('fecha', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el link']) !!}
 </div>
 

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Editar Participante')
 
 @section('content_header')
     <center><h1>{{$event->evento}} </h1></center>
@@ -23,6 +23,15 @@
                 {{-- Nombre Y apellidos --}}
 
                 <div class="form-group">
+                    {!! Form::label('sufix', 'Seleccionar') !!}
+                                {!! Form::select('sufix', ['Ing.'=>'Ingeniero', 
+                                                            'Lic.'=>'Licenciado', 
+                                                            'Dr.'=>'Doctor',
+                                                            'Abg.'=>'Abogado',
+                                                            ''=>'Ninguno'
+                                                        ], null, ['placeholder' => '--- Seleccion ---']) !!}
+                            
+
                     {!! Form::label('nombre', 'Nombre') !!}
                     {!! Form::text('nombre', null, ['class' => '', 'placeholder'=>'Nombre']) !!}
 
@@ -45,6 +54,11 @@
                     <span class="text-danger">{{$message}}</span>
                 @enderror
 
+                <div class="form-group mb-3">
+                    {!! Form::label('empleo', 'Lugar de trabajo y/o cargo que ocupa') !!}
+                    {!! Form::text('empleo', null, ['class' => 'form-control', 'placeholder' => 'Lugar y cargo de su empleo (Si tiene)']) !!}
+                </div>
+                
                 {{-- Email --}}
                 <div class="form-group">
                     {!! Form::label('email', 'Email') !!}
@@ -178,17 +192,11 @@
                     <span class="text-danger">{{$message}}</span>
                 @enderror
     
-            {!! Form::submit('Actualizar Registro', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Actualizar Registro', ['class' => 'btn btn-success']) !!}
     
             {!! Form::close() !!}
         </div>
     </div>
-
-    <div class="card-header">
-        <a href="{{route('admin.students.enviado.index')}}" class="btn btn-primary">Volver a Pendientes</a>
-        <a href="{{route('admin.students.aprobado.index')}}" class="btn btn-primary">Volver a Aprobados</a>
-        <a href="{{route('admin.students.rechazado.index')}}" class="btn btn-primary">Volver a Rechazados</a>
-    </div><br>
 
     <div class="card-header">
         <a href="javascript: history.go(-1)">Volver</a><br><br>
